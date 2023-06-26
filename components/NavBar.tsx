@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
@@ -16,7 +17,14 @@ const NavBar = () => {
   return (
     <nav className='flexBetween navbar'>
       <div className='flex-1 flexStart gap-10'>
-        {renderedLinks}
+        <Link href={"/"}>
+          <Image
+            src={"/slogo.svg"}
+            width={200}
+            height={50}
+            alt='Socialize logo'
+          />
+        </Link>
       </div>
     </nav>
   );
