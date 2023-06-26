@@ -1,18 +1,18 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { NavLinks } from "@/constants";
 
 const NavBar = () => {
-  const links = [
-    { path: "/", label: "Home" },
-    { path: "/", label: "About" },
-    { path: "/", label: "Projects" },
-    { path: "/", label: "Privacy" },
-  ];
-
-  const renderedLinks = links.map(({ path, label }) => {
-    return <Link href={path}>{label}</Link>;
-  });
+  const renderedLinks = NavLinks.map(
+    ({ href, text, key }) => {
+      return (
+        <li key={key}>
+          <Link href={href}>{text}</Link>
+        </li>
+      );
+    }
+  );
 
   return (
     <nav className='flexBetween navbar'>
@@ -25,6 +25,9 @@ const NavBar = () => {
             alt='Socialize logo'
           />
         </Link>
+        <ul className='xl:flex hidden gap-10'>
+          {renderedLinks}
+        </ul>
       </div>
     </nav>
   );
