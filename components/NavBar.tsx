@@ -5,7 +5,7 @@ import { NavLinks } from "@/constants";
 import AuthProviders from "./AuthProviders";
 
 const NavBar = () => {
-  const session = true;
+  const session = false;
 
   const renderedLinks = NavLinks.map(
     ({ href, text, key }) => {
