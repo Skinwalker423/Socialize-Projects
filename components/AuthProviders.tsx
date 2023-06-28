@@ -32,9 +32,9 @@ const AuthProviders = () => {
     signIn();
   };
 
-  if (!providers) {
-    return "Loading...";
-  }
+  // if (!providers) {
+  //   return "Loading...";
+  // }
 
   if (providers) {
     return (
@@ -43,7 +43,11 @@ const AuthProviders = () => {
           (provider: Provider, i) => {
             console.log("provider:", provider);
             return (
-              <button key={i} onClick={handleClick}>
+              <button
+                className='px-3 py-2 mx-3 border border-blue-400'
+                key={i}
+                onClick={() => signIn(provider?.id)}
+              >
                 {provider.id}
               </button>
             );
