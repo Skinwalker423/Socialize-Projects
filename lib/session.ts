@@ -9,7 +9,7 @@ import {
   SessionInterface,
   UserProfile,
 } from "@/common.types";
-import { getUserData } from "./actions";
+import { createUser, getUserData } from "./actions";
 
 export const authOptions: NextAuthOptions = {
   // Configure one or more authentication providers
@@ -55,6 +55,11 @@ export const authOptions: NextAuthOptions = {
 
         if (!data.user) {
           //action create user
+          const userProfile = await createUser(
+            user?.name as string,
+            user?.email as string,
+            user?.image as string
+          );
         }
 
         return true;
@@ -65,7 +70,26 @@ export const authOptions: NextAuthOptions = {
     },
     async session({ session }) {
       // Send properties to the client, like an access_token from a provider.
-      return session;
+      const email = session?.user?.email;
+
+      try {
+        const data = (await getUserData(
+          email as string
+        )) as { user?: UserProfile };
+
+        const newSession = {
+          ...session,
+          user: {
+            ...session?.user,
+            ...data?.user,
+          },
+        };
+
+        return newSession;
+      } catch (error) {
+        console.log("problem accessing user", error);
+        return session;
+      }
     },
   },
 };
