@@ -11,3 +11,19 @@ query User ($email: String!) {
   }
 }
 `;
+
+export const createUserQuery = `
+mutation UserCreate ($input: UserCreateInput!) {
+  userCreate (input: $input) {
+    user {
+      id
+      name
+      email
+      avatarUrl
+      description
+      gitHubUrl
+      linkedInUrl
+    }
+  }
+}
+`;
