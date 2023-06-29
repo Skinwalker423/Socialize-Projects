@@ -5,7 +5,11 @@ import GithubProvider from "next-auth/providers/github";
 import { AdapterUser } from "next-auth/adapters";
 import jsonwebtoken from "jsonwebtoken";
 import { JWT } from "next-auth/jwt";
-import { SessionInterface } from "@/common.types";
+import {
+  SessionInterface,
+  UserProfile,
+} from "@/common.types";
+import { getUserData } from "./actions";
 
 export const authOptions: NextAuthOptions = {
   // Configure one or more authentication providers
@@ -43,7 +47,15 @@ export const authOptions: NextAuthOptions = {
       try {
         //if user exists, get user
 
+        const data = (await getUserData(
+          user?.email as string
+        )) as { user?: UserProfile };
+
         //if not create user
+
+        if (!data.user) {
+          //action create user
+        }
 
         return true;
       } catch (error) {

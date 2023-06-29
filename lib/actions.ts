@@ -1,4 +1,5 @@
 import { GraphQLClient } from "graphql-request";
+import { getUserQuery } from "@/graphql";
 
 const isProduction = process.env.NODE_ENV === "production";
 
@@ -18,7 +19,14 @@ const makeGraphQLRequest = async (
 ) => {
   try {
     //client request
+    const data = await client.request(query, variables);
+    if (!data) return;
+    return data;
   } catch (error) {
     throw error;
   }
+};
+
+export const getUserData = (email: string) => {
+  return makeGraphQLRequest(getUserQuery, { email });
 };
