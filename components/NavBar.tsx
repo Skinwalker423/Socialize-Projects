@@ -3,9 +3,12 @@ import Link from "next/link";
 import React from "react";
 import { NavLinks } from "@/constants";
 import AuthProviders from "./AuthProviders";
+import { getCurrentUser } from "@/lib/session";
 
-const NavBar = () => {
-  const session = false;
+const NavBar = async () => {
+  const session = await getCurrentUser();
+  console.log("session:", session);
+  const userImage = session?.user?.image;
 
   const renderedLinks = NavLinks.map(
     ({ href, text, key }) => {
@@ -34,10 +37,11 @@ const NavBar = () => {
         </ul>
       </div>
       <div className='flex-1 flexCenter gap-4'>
-        {session ? (
+        {userImage ? (
           <>
             <Image
-              src={"/vercel.svg"}
+              className='rounded-full'
+              src={userImage}
               alt='user avatar'
               width={50}
               height={50}
