@@ -9,3 +9,16 @@ const apiUrl = isProduction
 const apiKey = isProduction
   ? process.env.NEXT_PUBLIC_GRAFBASE_API_KEY || ""
   : "letmein";
+
+const client = new GraphQLClient(apiUrl);
+
+const makeGraphQLRequest = async (
+  query: string,
+  variables = {}
+) => {
+  try {
+    //client request
+  } catch (error) {
+    throw error;
+  }
+};
