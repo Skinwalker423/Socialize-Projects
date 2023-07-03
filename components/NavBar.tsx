@@ -4,14 +4,12 @@ import React from "react";
 import { NavLinks } from "@/constants";
 import AuthProviders from "./AuthProviders";
 import { getCurrentUser } from "@/lib/session";
-import { signOut } from "next-auth/react";
 import ProfileMenu from "./ProfileMenu";
 
 const NavBar = async () => {
   const session = await getCurrentUser();
   console.log("session:", session);
   const userImage = session?.user?.image;
-  const userId = session?.user?.id;
 
   const renderedLinks = NavLinks.map(
     ({ href, text, key }) => {
