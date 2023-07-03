@@ -28,6 +28,7 @@ const makeGraphQLRequest = async (
 };
 
 export const getUserData = (email: string) => {
+  client.setHeader("x-api-key", apiKey);
   return makeGraphQLRequest(getUserQuery, { email });
 };
 
@@ -36,6 +37,7 @@ export const createUser = async (
   email: string,
   avatarUrl: string
 ) => {
+  client.setHeader("x-api-key", apiKey);
   const variables = {
     input: {
       name,

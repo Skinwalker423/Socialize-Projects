@@ -32,28 +32,35 @@ export const authOptions: NextAuthOptions = {
     }),
     // ...add more providers here
   ],
-  jwt: {
-    encode: ({ secret, token }) => {
-      const encodedToken = jsonwebtoken.sign(
-        {
-          ...token,
-          iss: "grafbase",
-          exp: Math.floor(Date.now() / 1000) + 60 * 60,
-        },
-        secret
-      );
+  // jwt: {
+  //   encode: ({ secret, token }) => {
+  //     console.log("token", token);
+  //     console.log("secret", secret);
+  //     const encodedToken = jsonwebtoken.sign(
+  //       {
+  //         ...token,
+  //         iss: "grafbase",
+  //       },
+  //       secret,
+  //       {
+  //         expiresIn: "1h",
+  //       }
+  //     );
+  //     console.log("encoded token", encodedToken);
+  //     return encodedToken;
+  //   },
+  //   decode: ({ secret, token }) => {
+  //     console.log("dtoken", token);
+  //     console.log("dsecret", secret);
 
-      return encodedToken;
-    },
-    decode: async ({ secret, token }) => {
-      const decodedToken = jsonwebtoken.verify(
-        token!,
-        secret
-      ) as JWT;
-
-      return decodedToken;
-    },
-  },
+  //     const decodedToken = jsonwebtoken.verify(
+  //       token!,
+  //       secret
+  //     ) as JWT;
+  //     console.log("decoded token", decodedToken);
+  //     return decodedToken;
+  //   },
+  // },
   secret: process.env.NEXTAUTH_SECRET,
   theme: {
     colorScheme: "dark",
@@ -94,7 +101,7 @@ export const authOptions: NextAuthOptions = {
         const data = (await getUserData(
           email as string
         )) as { user?: UserProfile };
-
+        console.log("data within session", data);
         const newSession = {
           ...session,
           user: {
@@ -116,6 +123,7 @@ export async function getCurrentUser() {
   const session = (await getServerSession(
     authOptions
   )) as SessionInterface;
+  console.log("session details", session);
 
   return session;
 }

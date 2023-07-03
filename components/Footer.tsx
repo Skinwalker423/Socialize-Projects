@@ -14,11 +14,10 @@ const FooterColumn = ({ title, links }: ColumnProps) => (
     <ul className='flex flex-col gap-2'>
       {links.map((link) => {
         return (
-          <li>
+          <li key={link}>
             <Link
               className='hover:text-slate-900 text-slate-500'
               href={"/"}
-              key={link}
             >
               {link}
             </Link>
